@@ -1,9 +1,11 @@
+const url = undefined
+
 async function createAccount(name, password) {
     const data = {
         userName: name,
         password: password
     }
-    const response = await fetch('https://demoqa.com/Account/v1/User', 
+    const response = await fetch(`${url}Account/v1/User`, 
     {
         method: "POST", // or 'PUT'
         headers: {
@@ -24,7 +26,7 @@ async function generateTokenAccount(name, password) {
         userName: name,
         password: password
     }
-    const response = await fetch('https://demoqa.com/Account/v1/GenerateToken', 
+    const response = await fetch(`${url}Account/v1/GenerateToken`, 
     {
         method: "POST", // or 'PUT'
         headers: {
@@ -48,7 +50,7 @@ async function getAccount(userId, token) {
         'Authorization': token
       };
     console.log(userId)
-    const response = await fetch(`https://demoqa.com/Account/v1/User/${userId}`,{
+    const response = await fetch(`${url}Account/v1/User/${userId}`,{
         method: 'GET',
         headers: headers
       })
@@ -65,7 +67,7 @@ async function deleteAccount(userId, token) {
         'authorization': 'Basic VGVzdExvbmdXb3JkJDU6VGVzdExvbmdXb3JkJDU=',
         'Authorization': token
       };
-    const response = await fetch(`https://demoqa.com/Account/v1/User/${userId}`,{
+    const response = await fetch(`${url}Account/v1/User/${userId}`,{
         method: 'Delete',
         headers: headers
       })
@@ -87,7 +89,7 @@ async function authorizedAccount(name, password, token) {
         'Authorization': token,
         'Content-Type': 'application/json'
       };
-    const response = await fetch('https://demoqa.com/Account/v1/Authorized', 
+    const response = await fetch(`${url}Account/v1/Authorized`, 
     {
         method: "POST", // or 'PUT'
         headers:headers,

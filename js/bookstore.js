@@ -1,5 +1,6 @@
+const url = undefined
 async function getBooks() {
-    const response = await fetch('https://demoqa.com/BookStore/v1/Books')
+    const response = await fetch(`${url}BookStore/v1/Books`)
     const result = await response.json();
     if (!response.ok) {
         console.log((`HTTP error: ${response.status}`));
@@ -8,7 +9,7 @@ async function getBooks() {
 }
 
 async function getOneBook(isbn) {
-    const response = await fetch(`https://demoqa.com/BookStore/v1/Book?ISBN=${isbn}`)
+    const response = await fetch(`${url}BookStore/v1/Book?ISBN=${isbn}`)
     const result = await response.json();
     if (!response.ok) {
         console.log((`HTTP error: ${response.status}`));
@@ -25,7 +26,7 @@ async function addListOfBooks(userId, books) {
     'accept': 'application/json',
     'Content-Type': 'application/json'
     };
-    const response = await fetch('https://demoqa.com/BookStore/v1/Books', 
+    const response = await fetch('${url}BookStore/v1/Books', 
     {
         method: "POST", // or 'PUT'
         headers: headers,
