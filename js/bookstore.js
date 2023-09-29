@@ -8,6 +8,7 @@ async function getBooks() {
     return result
 }
 
+
 async function getOneBook(isbn) {
     const response = await fetch(`${url}BookStore/v1/Book?ISBN=${isbn}`)
     const result = await response.json();
@@ -17,16 +18,19 @@ async function getOneBook(isbn) {
     return result
 }
 
-async function addListOfBooks(userId, books) {
+
+async function addUserListOfBooks(userId, books, token) {
     const data = {
         "userId": userId,
         "collectionOfIsbns": books
       }
     const headers = {
     'accept': 'application/json',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'authorization': 'Basic VGVzdExvbmdXb3JkJDU6VGVzdExvbmdXb3JkJDU=',
+    'Authorization': token
     };
-    const response = await fetch('${url}BookStore/v1/Books', 
+    const response = await fetch(`${url}BookStore/v1/Books`, 
     {
         method: "POST", // or 'PUT'
         headers: headers,
@@ -41,15 +45,75 @@ async function addListOfBooks(userId, books) {
     }
 
 
-addListOfBooks('82c3b5de-8f96-46d7-b9ad-bc56fcdf0a29', [
-{isbn: '97815932758461',
-title: 'Eloquent JavaScript, Second Edition',
-subTitle: 'A Modern Introduction to Programming',
-author: 'Marijn Haverbeke',
-publish_date: '2014-12-14T00:00:00.000Z',
-publisher: 'No Starch Press',
-pages: 472,
-description: 'JavaScript lies at the heart of almost every modern web application, from social apps to the newest browser-based games. Though simple for beginners to pick up and play with, JavaScript is a flexible, complex language that you can use to build full-scale ',
-website: 'http://eloquentjavascript.net/'}
-]).then(((data)=>console.log(data)))
+async function deleteUserBooks(userId, token) {
+    const headers = {
+        'accept': 'application/json',
+        'authorization': 'Basic VGVzdExvbmdXb3JkJDU6VGVzdExvbmdXb3JkJDU=',
+        'Authorization': token
+      };
+    
+    const response = await fetch(`${url}BookStore/v1/Books?UserId=${userId}`,{
+        headers: headers,
+        method: 'DELETE'
 
+    })
+    return response
+}    
+
+
+async function deleteUserBook(isbn, userId, token) {
+    const data = {
+        "isbn": isbn,
+        "userId": userId,
+      }
+    const headers = {
+        'accept': 'application/json',
+        'authorization': 'Basic VGVzdExvbmdXb3JkJDU6VGVzdExvbmdXb3JkJDU=',
+        'Authorization': token
+      };
+    
+    const response = await fetch(`${url}BookStore/v1/Books?UserId=${userId}`,{
+        method: 'DELETE',
+        headers: headers,
+        data:JSON.stringify(data)
+
+    })
+    return response
+}
+
+
+async function replaceUserBook(isbnBook, isbnReplace, userId, token) {
+    const data = {
+        "userId": userId,
+        "isbn": isbnReplace
+      }
+    const headers = {
+    'accept': 'application/json',
+    'authorization': 'Basic VGVzdExvbmdXb3JkJDU6VGVzdExvbmdXb3JkJDU=',
+    'Authorization': token,
+    'Content-Type': 'application/json'
+    
+    };
+    const response = await fetch(`${url}BookStore/v1/Books/${isbnBook}`,
+    {
+        method: 'PUT',
+        headers: headers,
+        body: JSON.stringify(data)
+    })
+    const result = await  response.json();
+    if (!response.ok) {
+        console.log((`HTTP error: ${response.status}`));
+    }
+    return result
+}
+/*
+addUserListOfBooks('82c3b5de-8f96-46d7-b9ad-bc56fcdf0a29', [
+    {isbn: '9781449365035'}
+    ],
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlRlc3RMb25nV29yZCQ1IiwicGFzc3dvcmQiOiJUZXN0TG9uZ1dvcmQkNSIsImlhdCI6MTY5NTk2NjU5NX0.TLN7Vy_YdxdbZ1EFKSI5ZTcDcXN8OIRmHOuXBnfVtnw')
+    .then(((data)=>console.log(data)))
+
+replaceUserBook('9781449365035', '9781491904244', '82c3b5de-8f96-46d7-b9ad-bc56fcdf0a29', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlRlc3RMb25nV29yZCQ1IiwicGFzc3dvcmQiOiJUZXN0TG9uZ1dvcmQkNSIsImlhdCI6MTY5NTk2NjU5NX0.TLN7Vy_YdxdbZ1EFKSI5ZTcDcXN8OIRmHOuXBnfVtnw').then((data)=> console.log(data))
+
+*/
+export {addUserListOfBooks, getOneBook, getBooks, replaceUserBook, deleteUserBook, deleteUserBooks}

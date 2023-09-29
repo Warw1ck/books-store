@@ -1,5 +1,4 @@
 const url = undefined
-
 async function createAccount(name, password) {
     const data = {
         userName: name,
@@ -15,10 +14,7 @@ async function createAccount(name, password) {
     }
     )
     const result = await response.json();
-    if (!response.ok) {
-        console.log((`HTTP error: ${response.status}`));
-    }
-    return result
+    return [result, response.status]
     }
 
 async function generateTokenAccount(name, password) {
@@ -39,7 +35,8 @@ async function generateTokenAccount(name, password) {
     if (!response.ok) {
         console.log((`HTTP error: ${response.status}`));
     }
-    return result
+    return [result, response.status]
+
 }
 
 
@@ -58,7 +55,7 @@ async function getAccount(userId, token) {
     if (!response.ok) {
         console.log((`HTTP error: ${response.status}`));
     }
-    return result
+    return [result, response.status]
 }
 
 async function deleteAccount(userId, token) {
@@ -103,20 +100,21 @@ async function authorizedAccount(name, password, token) {
     return result
     }
 
-Promise.all(
-    [
+
+
 /*
     authorizedAccount('TestLongWord$5', 'TestLongWord$5'),
     createAccount('TestLongWord$6', 'TestLongWord$6'), 
     deleteAccount('6ed928b3-392e-44c5-ad23-c43001c709c0', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlRlc3RMb25nV29yZCQ1IiwicGFzc3dvcmQiOiJUZXN0TG9uZ1dvcmQkNSIsImlhdCI6MTY5NTkxMTk4NH0.hFAbdj1N84qtdC8QKzSw3QVMTi6bkWWQ7hKlfNS9mRk')
     getAccount('f1a754f1-06af-44bb-8a32-eb4e04ffce50', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlRlc3RMb25nV29yZCQ1IiwicGFzc3dvcmQiOiJUZXN0TG9uZ1dvcmQkNSIsImlhdCI6MTY5NTkxMTg2OX0.QnJXXUea6FRbaUz0Gs_9R3eiMJu6bOZFob6tZ1t5wuQ')
-
-
-*/
-authorizedAccount('TestLongWord$5', 'TestLongWord$5', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlRlc3RMb25nV29yZCQ1IiwicGFzc3dvcmQiOiJUZXN0TG9uZ1dvcmQkNSIsImlhdCI6MTY5NTkyNjQzMX0._y7MOm-iJHXrGb8kwrkvmaQq7EMMBHQkeljA6wItgi4')
-
+getAccount('82c3b5de-8f96-46d7-b9ad-bc56fcdf0a29', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlRlc3RMb25nV29yZCQ1IiwicGFzc3dvcmQiOiJUZXN0TG9uZ1dvcmQkNSIsImlhdCI6MTY5NTk2NjU5NX0.TLN7Vy_YdxdbZ1EFKSI5ZTcDcXN8OIRmHOuXBnfVtnw')
 ]
 )
 .then((data)=>console.log(data))
+createAccount('TestLongWord$51', 'TestLongWord$51').then((data)=>console.log(data))
 
 
+
+*/
+
+createAccount('42423', 'Ton$123').then((data)=>console.log(data))
