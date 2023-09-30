@@ -24,7 +24,7 @@ async function generateTokenAccount(name, password) {
     }
     const response = await fetch(`${url}Account/v1/GenerateToken`, 
     {
-        method: "POST", // or 'PUT'
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -32,9 +32,6 @@ async function generateTokenAccount(name, password) {
     }
     )
     const result = await response.json();
-    if (!response.ok) {
-        console.log((`HTTP error: ${response.status}`));
-    }
     return [result, response.status]
 
 }
@@ -46,15 +43,12 @@ async function getAccount(userId, token) {
         'authorization': 'Basic VGVzdExvbmdXb3JkJDU6VGVzdExvbmdXb3JkJDU=',
         'Authorization': token
       };
-    console.log(userId)
     const response = await fetch(`${url}Account/v1/User/${userId}`,{
         method: 'GET',
         headers: headers
       })
     const result = await response.json();
-    if (!response.ok) {
-        console.log((`HTTP error: ${response.status}`));
-    }
+
     return [result, response.status]
 }
 
@@ -68,9 +62,7 @@ async function deleteAccount(userId, token) {
         method: 'Delete',
         headers: headers
       })
-    if (!response.ok) {
-        console.log((`HTTP error: ${response.status}`));
-    }
+
     return response
 }
 
@@ -94,9 +86,7 @@ async function authorizedAccount(name, password, token) {
     }
     )
     const result = await response.json();
-    if (!response.ok) {
-        console.log((`HTTP error: ${response.status}`));
-    }
+
     return result
     }
 
@@ -116,5 +106,14 @@ createAccount('TestLongWord$51', 'TestLongWord$51').then((data)=>console.log(dat
 
 
 */
-
-createAccount('42423', 'Ton$123').then((data)=>console.log(data))
+function printText(text){
+    console.log(text)
+}
+module.exports = {
+    createAccount,
+    deleteAccount,
+    generateTokenAccount,
+    authorizedAccount,
+    getAccount,
+    printText
+  };
