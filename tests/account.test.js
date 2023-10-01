@@ -1,8 +1,55 @@
 const { createAccount, deleteAccount, generateTokenAccount, authorizedAccount, getAccount, printText } = require('../js/account.js')
 
-    
+
+
+describe('Properly Creating Account', () => {
+    const [name, password] = ['TestUsfdafadf', 'TestWord$12314124'];
+    let userData, statusCode, tokenData, tokenStatusCode, authorizationStatus, getUserData, getStatusCode;
+  
+    beforeAll(async () => {
+      [userData, statusCode]= await createAccount(name, password);      
+      
+      [tokenData, tokenStatusCode] = await generateTokenAccount(name, password);
+  
+      authorizationStatus = await authorizedAccount(name, password, tokenData.token);
+      printText(authorizationStatus)
+  
+      [getUserData, getStatusCode] = await getAccount(userData.userId, tokenData.token);
+      
+      await deleteAccount(userData.userId, tokenData.token);
+    });
+
+    test('creating new account', () => {
+        deleteAccount(userData.userId, tokenData.token);
+        printText(getUserData)
+        printText(get)
+        printText('User')
+        printText(userData)
+        printText(statusCode)
+        printText(tokenData)
+        expect(statusCode).toEqual(201);
+        expect(userData.username).toEqual(name);
+        expect(userData.userId).not.toBeNull();
+        expect(userData.books).toEqual([]);
+    });
+  
+    test('validate if new was created account ', () => {
+        expect(getStatusCode).toEqual(201);
+        expect(getUserData.username).toEqual(userData.username);
+        expect(getUserData.userId).toEqual(userData.userId);
+    });
+  
+  });
+
+
 describe('Creating Account', () => {
     const [name, password] = ['TestWord$2345278', 'TestWord$34567'];
+    let userData 
+    beforeAll(done => {
+        // Asynchronous task
+        // ...
+        done();
+      });
 
     test('creating new account and validate if its exist', async () => {
         const [userData, statusCode] = await createAccount(name, password);

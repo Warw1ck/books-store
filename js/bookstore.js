@@ -1,4 +1,4 @@
-const url = undefined
+const url = 'https://demoqa.com/'
 async function getBooks() {
     const response = await fetch(`${url}BookStore/v1/Books`)
     const result = await response.json();

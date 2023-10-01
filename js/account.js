@@ -1,4 +1,4 @@
-const url = undefined
+const url = 'https://demoqa.com/'
 async function createAccount(name, password) {
     const data = {
         userName: name,
@@ -108,12 +108,9 @@ createAccount('TestLongWord$51', 'TestLongWord$51').then((data)=>console.log(dat
 */
 function printText(text){
     console.log(text)
+
 }
-module.exports = {
-    createAccount,
-    deleteAccount,
-    generateTokenAccount,
-    authorizedAccount,
-    getAccount,
-    printText
-  };
+
+
+
+
