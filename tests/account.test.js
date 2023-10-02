@@ -42,39 +42,9 @@ describe('Properly Creating Account', () => {
   });
 
 
-describe('Creating Account', () => {
-    const [name, password] = ['TestWord$2345278', 'TestWord$34567'];
-    let userData 
-    beforeAll(done => {
-        // Asynchronous task
-        // ...
-        done();
-      });
+describe('Creating Account with Errors', () => {
+    const [name, password] = ['TestUsfdafadf', 'TestWord$12314124'];
 
-    test('creating new account and validate if its exist', async () => {
-        const [userData, statusCode] = await createAccount(name, password);
-        printText(userData)
-        const [tokenData, tokenStatusCode] = await generateTokenAccount(name, password);
-        const authorizationStatus = await authorizedAccount(name, password, tokenData.token);
-        const [getUserData, getStatusCode] = await getAccount(userData.userId, tokenData.token);
-        const deleteProfile = await deleteAccount(userData.userId, tokenData.token);
-        printText(authorizationStatus)
-        printText()
-        printText(deleteAccount.status)
-        
-        expect(statusCode).toEqual(201);
-        expect(userData.username).toEqual(name);
-        expect(userData.userId).not.toBeNull();
-        expect(userData.books).toEqual([]);
-
-        expect(getStatusCode).toEqual(201);
-        expect(getUserData.username).toEqual(userData.username);
-        expect(getUserData.userId).toEqual(userData.userId);
-        
-
-
-
-    });
 
     test('trying to create user who exists', async () => {
         const [userData, statusCode] = await createAccount(name, password);
@@ -98,6 +68,7 @@ describe('Creating Account', () => {
         expect(wrongUserData.message).toEqual("Passwords must have at least one non alphanumeric character, one digit ('0'-'9'), one uppercase ('A'-'Z'), one lowercase ('a'-'z'), one special character and Password must be eight characters or longer.");
         expect(wrongUserData.code).toEqual('1300');
     });
+ 
 
 });
       

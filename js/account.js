@@ -67,16 +67,14 @@ async function deleteAccount(userId, token) {
 }
 
 
-async function authorizedAccount(name, password, token) {
+async function authorizedAccount(name, password) {
     const data = {
         userName: name,
         password: password
     }
     const headers = {
         'accept': 'application/json',
-        'authorization': 'Basic VGVzdExvbmdXb3JkJDU6VGVzdExvbmdXb3JkJDU=',
-        'Authorization': token,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       };
     const response = await fetch(`${url}Account/v1/Authorized`, 
     {
@@ -110,6 +108,32 @@ function printText(text){
     console.log(text)
 
 }
+
+
+async function createAndDeleteAccount(name, password) {
+    const [userData, userStatus] =  await createAccount(name, password)
+    console.log(userData)
+    const [tokenData, tokenStatus] = await generateTokenAccount(name, password)
+    console.log(tokenData)
+    const authorizationData = await authorizedAccount(name, password)
+    console.log(`Authorization Data: ${authorizationData}`)
+    const [getData, getStatus] = await getAccount(userData.userId, tokenData.token)
+    console.log(getData)
+    const deleteResult = await deleteAccount(userData.userId, tokenData.token)
+    console.log(`Delete Data: ${deleteResult.status}`)
+    
+}
+
+generateTokenAccount('TestLongWord$5', 'TestLongWord$5').then(
+    authorizedAccount('TestLongWord$5', 'TestLongWord$5').then(
+        deleteAccount('65f337e2-a74d-42ee-b696-1364da2fccab', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlRlc3RMb25nV29yZCQ1IiwicGFzc3dvcmQiOiJUZXN0TG9uZ1dvcmQkNSIsImlhdCI6MTY5NTk2NjU5NX0.TLN7Vy_YdxdbZ1EFKSI5ZTcDcXN8OIRmHOuXBnfVtnw')
+        .then((data)=>console.log(data))
+    )
+    
+    
+)
+
+
 
 
 
