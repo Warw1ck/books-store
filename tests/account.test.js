@@ -1,4 +1,4 @@
-const { createAccount, deleteAccount, generateTokenAccount, authorizedAccount, getAccount, printText } = require('../js/account.js')
+const { createAccount, deleteAccount, generateTokenAccount, authorizedAccount, getAccount} = require('../js/account.js')
 
 
 
@@ -12,7 +12,6 @@ describe('Properly Creating Account', () => {
       [tokenData, tokenStatusCode] = await generateTokenAccount(name, password);
   
       authorizationStatus = await authorizedAccount(name, password, tokenData.token);
-      printText(authorizationStatus)
   
       [getUserData, getStatusCode] = await getAccount(userData.userId, tokenData.token);
       
@@ -21,12 +20,6 @@ describe('Properly Creating Account', () => {
 
     test('creating new account', () => {
         deleteAccount(userData.userId, tokenData.token);
-        printText(getUserData)
-        printText(get)
-        printText('User')
-        printText(userData)
-        printText(statusCode)
-        printText(tokenData)
         expect(statusCode).toEqual(201);
         expect(userData.username).toEqual(name);
         expect(userData.userId).not.toBeNull();

@@ -98,16 +98,5 @@ async function replaceUserBook(isbnBook, isbnReplace, userId, token) {
     
     return [result, response.status]
 }
-/*
-addUserListOfBooks('82c3b5de-8f96-46d7-b9ad-bc56fcdf0a29', [
-    {isbn: '9781449365035'}
-    ],
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlRlc3RMb25nV29yZCQ1IiwicGFzc3dvcmQiOiJUZXN0TG9uZ1dvcmQkNSIsImlhdCI6MTY5NTk2NjU5NX0.TLN7Vy_YdxdbZ1EFKSI5ZTcDcXN8OIRmHOuXBnfVtnw')
-    .then(((data)=>console.log(data)))
-
-replaceUserBook('9781449365035', '9781491904244', '82c3b5de-8f96-46d7-b9ad-bc56fcdf0a29', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlRlc3RMb25nV29yZCQ1IiwicGFzc3dvcmQiOiJUZXN0TG9uZ1dvcmQkNSIsImlhdCI6MTY5NTk2NjU5NX0.TLN7Vy_YdxdbZ1EFKSI5ZTcDcXN8OIRmHOuXBnfVtnw').then((data)=> console.log(data))
-
-*/
-
 
 module.exports = {addUserListOfBooks, getOneBook, getBooks, replaceUserBook, deleteUserBook, deleteUserBooks}
